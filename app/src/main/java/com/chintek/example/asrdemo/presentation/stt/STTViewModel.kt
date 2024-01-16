@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.chintek.example.asrdemo.domain.chat.Message
 import com.chintek.example.asrdemo.domain.chat.Role
 import com.chintek.example.asrdemo.domain.stt.STTConverter
+import com.chintek.example.asrdemo.domain.tts.TTSConverter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class STTViewModel  @Inject constructor(
     private val sttConverter: STTConverter,
+    private val ttsConverter: TTSConverter,
 ): ViewModel() {
 
     val TAG = STTViewModel::class.java.simpleName
@@ -44,6 +46,7 @@ class STTViewModel  @Inject constructor(
     }
 
     private fun echo(text: String) {
+        ttsConverter.speak(text)
         state.messages.add(Message(Role.User(), text))
         state.messages.add(Message(Role.System(), text))
         state = state.copy(messages = state.messages)

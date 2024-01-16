@@ -8,17 +8,18 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import com.chintek.example.asrdemo.domain.stt.STTConverter
 import com.chintek.example.asrdemo.domain.stt.STTResult
+import java.util.Locale
 import javax.inject.Inject
 
 class DefaultSTTConverter @Inject constructor(
     private val speechRecognizer: SpeechRecognizer,
     private val application: Application,
-
     ): STTConverter, RecognitionListener {
 
     private val recognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
         putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, application.packageName)
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja_JP");
 //        putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 2500)
 //        putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000)
     }
